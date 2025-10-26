@@ -1,0 +1,19 @@
+ORG 0000H
+START:  MOV DPTR,#TABLE
+        MOV R0,#0AH
+NEXT:   CLR A
+        MOVC A,@A+DPTR
+        MOV P0,A
+        CALL DELAY
+        INC DPTR
+        DJNZ R0,NEXT
+        SJMP START
+
+DELAY:  MOV R2,#0FFH
+L1:     MOV R1,#0FFH
+L2:     DJNZ R1,L2
+        DJNZ R2,L1
+        RET
+
+TABLE:  DB 3FH,06H,5BH,4FH,66H,6DH,7DH,07H,7FH,6FH
+END

@@ -1,0 +1,19 @@
+ORG 0000H
+START:  MOV DPTR,#SEQ
+        MOV R0,#04H
+NEXT:   CLR A
+        MOVC A,@A+DPTR
+        MOV P0,A
+        CALL DELAY
+        INC DPTR
+        DJNZ R0,NEXT
+        SJMP START
+
+DELAY:  MOV R2,#0FFH
+L1:     MOV R1,#0FFH
+L2:     DJNZ R1,L2
+        DJNZ R2,L1
+        RET
+
+SEQ:    DB 09H,0CH,06H,03H
+END
